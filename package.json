@@ -23,7 +23,7 @@
     "name": "Aykut Kardaş",
     "email": "aykutkrds@gmail.com"
   },
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "slugify": "^1.5.0"
   }
