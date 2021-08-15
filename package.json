@@ -2,19 +2,27 @@
   "name": "svgps",
   "version": "0.1.1",
   "description": "Svg Parser",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "svgps": "index.js"
+    "svgps": "src/cli.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aykutkardas/svgps.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "svg",
+    "parser",
+    "icon",
+    "svg parser"
+  ],
+  "author": {
+    "name": "Aykut Kardaş",
+    "email": "aykutkrds@gmail.com"
+  },
   "license": "ISC",
   "dependencies": {
     "slugify": "^1.5.0"
