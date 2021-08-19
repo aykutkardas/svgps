@@ -1,9 +1,7 @@
-const getPaths = require("./getPaths");
-const getFills = require("./getFills");
 const getFormattedName = require("./getFormattedName");
+const parse = require("./parse");
 
 module.exports = {
   getFormattedName,
-  getPaths,
-  getFills,
+  parse,
 };

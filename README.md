@@ -26,21 +26,17 @@ getFormattedName("Green Apple.svg");
 #### getPaths
 
 ```js
-import { getPaths } from "svgps";
+import { parse } from "svgps";
 
-getPaths(`<svg>...</svg>`);
-
-// ["...", "...", "..."]
+parse(`<svg>...</svg>`);
 ```
 
-#### getFills
-
-```js
-import { getFills } from "svgps";
-
-getFills(`<svg>...</svg>`);
-
-// ["#41B883", "#41B883", "#35495E"]
+```json
+// Output
+{
+  "paths": ["M204.8,0 ...", "M0,0 ...", "M50.56,0 ..."],
+  "fills": ["#41B883", "#41B883", "#35495E"]
+}
 ```
 
 ## CLI
@@ -70,6 +66,9 @@ Output
 ```json
 // FILE: /home/my-project/src/icons.json
 {
-  "green-apple": ["...", "...", "..."]
+  "green-apple": {
+    "paths": ["M204.8,0 ...", "M0,0 ...", "M50.56,0 ..."],
+    "fills": ["#41B883", "#41B883", "#35495E"]
+  }
 }
 ```

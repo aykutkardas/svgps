@@ -3,7 +3,7 @@
 const fs = require("fs");
 
 const getFormattedName = require("./getFormattedName");
-const getPaths = require("./getPaths");
+const parse = require("./parse");
 
 const svgJson = {};
 
@@ -30,7 +30,7 @@ async function main() {
     const fileData = await fs.readFileSync(filePath, { encoding: "utf8" });
 
     const name = getFormattedName(fileName);
-    const paths = getPaths(fileData);
+    const paths = parse(fileData);
 
     if (paths) {
       svgJson[name] = paths;
