@@ -5,6 +5,9 @@ function parseSVG(svg) {
     schema: {
       paths: "path@d | array",
       fills: "path@fill | array",
+      width: "svg@width | number",
+      height: "svg@height | number",
+      viewBox: "svg@viewBox",
     },
   });
 }
