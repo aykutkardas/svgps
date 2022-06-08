@@ -21,6 +21,18 @@ function parseSVG(svg) {
     },
   });
 
+  if (data.viewBox) {
+    const [x, y, width, height] = data.viewBox.split(" ");
+
+    if (Number.isNaN(data.width) || !data.width) {
+      data.width = parseInt(width);
+    }
+
+    if (Number.isNaN(data.height) || !data.height) {
+      data.height = parseInt(height);
+    }
+  }
+
   data.points.forEach((point) => {
     data.paths.unshift(point);
   });
