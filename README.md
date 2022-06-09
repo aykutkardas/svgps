@@ -23,7 +23,7 @@ getFormattedName("Green Apple.svg");
 // "green-apple"
 ```
 
-#### getPaths
+#### parse
 
 ```js
 import { parse } from "svgps";
@@ -31,7 +31,7 @@ import { parse } from "svgps";
 parse(`<svg>...</svg>`);
 ```
 
-```json
+```js
 // Output
 {
   "paths": ["M204.8,0 ...", "M0,0 ...", "M50.56,0 ..."],
@@ -66,7 +66,7 @@ svgps /home/my-project/assets/icons /home/my-project/src
 
 Output
 
-```json
+```js
 // FILE: /home/my-project/src/icons.json
 {
   "green-apple": {

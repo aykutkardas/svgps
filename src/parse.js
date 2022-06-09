@@ -1,17 +1,19 @@
 const { parse } = require("muninn");
 
 function parseSVG(svg) {
+  const getPolygonPoints = (point) => {
+    if (point) {
+      return point.startsWith("M") ? point : "M" + point;
+    }
+
+    return point;
+  };
+
   const data = parse(svg, {
     schema: {
       points: {
         selector: "polygon @ points | array",
-        custom: function (val) {
-          if (val) {
-            return val.startsWith("M") ? val : "M" + val;
-          }
-
-          return val;
-        },
+        transform: getPolygonPoints,
       },
       paths: "path @ d | array",
       fills: "polygon, path @ fill | array",
@@ -22,20 +24,13 @@ function parseSVG(svg) {
   });
 
   if (data.viewBox) {
-    const [x, y, width, height] = data.viewBox.split(" ");
+    const [, , width, height] = data.viewBox.split(" ");
 
-    if (Number.isNaN(data.width) || !data.width) {
-      data.width = parseInt(width);
-    }
-
-    if (Number.isNaN(data.height) || !data.height) {
-      data.height = parseInt(height);
-    }
+    data.width = data.width || parseInt(width);
+    data.height = data.height || parseInt(height);
   }
 
-  data.points.forEach((point) => {
-    data.paths.unshift(point);
-  });
+  data.points.forEach((point) => data.paths.unshift(point));
 
   delete data.points;
 
