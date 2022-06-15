@@ -38,7 +38,9 @@ function parseSVG(svg) {
     data.height = data.height || parseInt(height);
   }
 
-  data.points?.forEach((point) => data.paths.unshift(point));
+  if (Array.isArray(data.points)) {
+    data.points.forEach((point) => data.paths.unshift(point));
+  }
 
   delete data.points;
 
