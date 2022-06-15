@@ -114,10 +114,10 @@ json-schema-traverse@^1.0.0:
   resolved "https://registry.yarnpkg.com/json-schema-traverse/-/json-schema-traverse-1.0.0.tgz#ae7bcb3656ab77a73ba5c49bf654f38e6b6860e2"
   integrity sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==
 
-muninn@^0.9.1:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/muninn/-/muninn-0.9.1.tgz#e8aae908f5bb9f2dab40a28e76b5fb77fe35317c"
-  integrity sha512-pfuX/0prY5GwyfBXvCsM7DJBF2z0OGzxiIl03VB27Yo/GNsDY7lPE3T58VilOIlg3X+sh1aoxbpE4zbaw+NoRA==
+muninn@^0.12.3:
+  version "0.12.3"
+  resolved "https://registry.yarnpkg.com/muninn/-/muninn-0.12.3.tgz#c4c2cf6bc7e2f04f595108c2a63ec989fd1c7696"
+  integrity sha512-TOZnzv/SeiRq7kdFgAtbLuTM8sFgH+1tC8RB+1bmSx9J0kQgMy7Qg0YqBqfmHjfd4ksF7yr8YnyYpq4mDilxNQ==
   dependencies:
     ajv "^8.1.0"
     cheerio "^1.0.0-rc.10"

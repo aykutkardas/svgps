@@ -20,6 +20,14 @@ function parseSVG(svg) {
       width: "svg @ width | number",
       height: "svg @ height | number",
       viewBox: "svg @ viewBox",
+      attrs: {
+        selector: "path | array",
+        schema: {
+          "clip-rule": "@ clip-rule",
+          "fill-rule": "@ fill-rule",
+        },
+      },
+      clipRules: {},
     },
   });
 
@@ -30,7 +38,7 @@ function parseSVG(svg) {
     data.height = data.height || parseInt(height);
   }
 
-  data.points.forEach((point) => data.paths.unshift(point));
+  data.points?.forEach((point) => data.paths.unshift(point));
 
   delete data.points;
 
