@@ -23,8 +23,8 @@ function parseSVG(svg) {
       attrs: {
         selector: "path | array",
         schema: {
-          "clip-rule": "@ clip-rule",
-          "fill-rule": "@ fill-rule",
+          clipRule: "@ clip-rule",
+          fillRule: "@ fill-rule",
         },
       },
       clipRules: {},
