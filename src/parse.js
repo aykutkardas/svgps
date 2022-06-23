@@ -25,9 +25,24 @@ function parseSVG(svg) {
         schema: {
           clipRule: "@ clip-rule",
           fillRule: "@ fill-rule",
+          stroke: "@ stroke",
+          strokeLinecap: "@ stroke-linecap",
+          strokeLinejoin: "@ stroke-linejoin",
+          strokeWidth: {
+            selector: " @ stroke-width | number",
+            transform: function (val) {
+              return Number.isNaN(val) ? null : val;
+            },
+          },
         },
       },
-      clipRules: {},
+      svgAttrs: {
+        selector: "svg",
+        schema: {
+          fill: "@ fill",
+          stroke: "@ stroke",
+        },
+      },
     },
   });
 
