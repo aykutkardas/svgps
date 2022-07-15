@@ -38,7 +38,9 @@ parse(`<svg>...</svg>`);
   "fills": ["#41B883", "#41B883", "#35495E"],
   "width": 256,
   "height": 221,
-  "viewBox": "0 0 256 221"
+  "viewBox": "0 0 256 221",
+  "attrs": [],
+  "svgAttrs": { "fill": "#f00", "stroke": "#00f" }
 }
 ```
 
@@ -58,16 +60,10 @@ Syntax
 svgps <input-dir-path> <output-dir-path>
 ```
 
-Sample
-
-```
-svgps /home/my-project/assets/icons /home/my-project/src
-```
-
 Output
 
 ```js
-// FILE: /home/my-project/src/icons.json
+// FILE: <output-directory-path>/icons.json
 {
   "green-apple": {
     "paths": ["M204.8,0 ...", "M0,0 ...", "M50.56,0 ..."],
@@ -75,6 +71,7 @@ Output
     "width": 256,
     "height": 221,
     "viewBox": "0 0 256 221"
-  }
+  },
+  // ...
 }
 ```

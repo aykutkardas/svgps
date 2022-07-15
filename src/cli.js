@@ -13,13 +13,12 @@ async function main() {
   if (!inputDir || !outputDir) throw "Input and Output is required!";
 
   const isExistInput = fs.existsSync(inputDir);
-  const isExistOutput = fs.existsSync(outputDir);
-
   if (!isExistInput) throw "Input path is not exist!";
+
+  const isExistOutput = fs.existsSync(outputDir);
   if (!isExistOutput) throw "Output path is not exist!";
 
   const inputDirContent = fs.readdirSync(inputDir, "utf-8");
-
   if (!inputDirContent) return;
 
   const svgFiles = inputDirContent.filter((file) => file.endsWith(".svg"));

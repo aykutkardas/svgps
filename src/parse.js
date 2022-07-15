@@ -2,11 +2,9 @@ const { parse } = require("muninn");
 
 function parseSVG(svg) {
   const getPolygonPoints = (point) => {
-    if (point) {
-      return point.startsWith("M") ? point : "M" + point;
-    }
+    if (!point) return null;
 
-    return point;
+    return point.startsWith("M") ? point : "M" + point;
   };
 
   const data = parse(svg, {
