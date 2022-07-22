@@ -1,6 +1,6 @@
 {
   "name": "svgps",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Svg Parser",
   "main": "src/index.js",
   "scripts": {
