@@ -13,18 +13,6 @@ npm install svgps
 
 ## Usage
 
-#### getFormattedName
-
-```js
-import { getFormattedName } from "svgps";
-
-getFormattedName("Green Apple.svg");
-
-// "green-apple"
-```
-
-#### parse
-
 ```js
 import { parse } from "svgps";
 
@@ -63,14 +51,16 @@ svgps <input-dir-path> <output-dir-path>
 Output
 
 ```js
-// FILE: <output-directory-path>/icons.json
+// FILE: <output-dir-path>/icons.json
 {
   "green-apple": {
     "paths": ["M204.8,0 ...", "M0,0 ...", "M50.56,0 ..."],
     "fills": ["#41B883", "#41B883", "#35495E"],
     "width": 256,
     "height": 221,
-    "viewBox": "0 0 256 221"
+    "viewBox": "0 0 256 221",
+    "attrs": [],
+    "svgAttrs": { "fill": "#f00", "stroke": "#00f" }
   },
   // ...
 }
