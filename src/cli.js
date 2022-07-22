@@ -29,10 +29,10 @@ async function main() {
     const fileData = await fs.readFileSync(filePath, { encoding: "utf8" });
 
     const name = getFormattedName(fileName);
-    const paths = parse(fileData);
+    const iconData = parse(fileData);
 
-    if (paths) {
-      svgJson[name] = paths;
+    if (iconData) {
+      svgJson[name] = iconData;
     }
   }
 
