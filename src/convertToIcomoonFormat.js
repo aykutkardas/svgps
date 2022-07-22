@@ -82,9 +82,7 @@ const convertToIcomoonFormat = (iconData) => {
           scale
       ),
     },
-    properties: {
-      name: iconData.name,
-    },
+    properties: {},
   };
 };
 

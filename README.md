@@ -32,36 +32,34 @@ parse(`<svg>...</svg>`);
 }
 ```
 
-## CLI
-
-### Install Globally
-
-```
-npm install -g svgps
-```
-
-### Usage
-
-Syntax
-
-```
-svgps <input-dir-path> <output-dir-path>
-```
-
-Output
+### IcoMoon Template
 
 ```js
-// FILE: <output-dir-path>/icons.json
+parse(`<svg>...</svg>`, { template: "icomoon" });
+```
+
+```js
+// Output
 {
-  "green-apple": {
-    "paths": ["M204.8,0 ...", "M0,0 ...", "M50.56,0 ..."],
-    "fills": ["#41B883", "#41B883", "#35495E"],
-    "width": 256,
-    "height": 221,
-    "viewBox": "0 0 256 221",
-    "attrs": [],
-    "svgAttrs": { "fill": "#f00", "stroke": "#00f" }
+  "icon": {
+    "paths": [
+      "M204.8,0 ...",
+      "M0,0 ...",
+      "M50.56,0 ..."
+    ],
+    "attrs": [
+      {
+        "fill": "#41B883"
+      },
+      {
+        "fill": "#41B883"
+      },
+      {
+        "fill": "#35495E"
+      }
+    ],
+    "width": 1024,
   },
-  // ...
+  properties: {}
 }
 ```

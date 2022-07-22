@@ -1,6 +1,8 @@
 const { parse } = require("muninn");
 
-function parseSVG(svg) {
+const convertToIcomoonFormat = require("./convertToIcomoonFormat");
+
+function parseSVG(svg, options) {
   const getPolygonPoints = (point) => {
     if (!point) return null;
 
@@ -57,7 +59,9 @@ function parseSVG(svg) {
 
   delete data.points;
 
-  return data;
+  const isIcomoon = options && options.template === "icomoon";
+
+  return isIcomoon ? convertToIcomoonFormat(data) : data;
 }
 
 module.exports = parseSVG;
