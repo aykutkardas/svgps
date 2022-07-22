@@ -60,6 +60,6 @@ parse(`<svg>...</svg>`, { template: "icomoon" });
     ],
     "width": 1024,
   },
-  properties: {}
+  "properties": {}
 }
 ```
