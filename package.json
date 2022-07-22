@@ -24,7 +24,6 @@
   "dependencies": {
     "lodash.uniq": "^4.5.0",
     "muninn": "^0.12.4",
-    "slugify": "^1.5.0",
     "svgpath": "^2.5.0"
   }
 }
