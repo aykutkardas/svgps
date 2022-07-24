@@ -1,15 +1,15 @@
-const { parse } = require("muninn");
+import { RawIcon } from "./types";
 
-const convertToIcomoonFormat = require("./convertToIcomoonFormat");
+import { parse as muninnParse } from "muninn";
 
-function parseSVG(svg, options) {
-  const getPolygonPoints = (point) => {
-    if (!point) return null;
+import { icomoon } from "./template/icomoon";
 
-    return point.startsWith("M") ? point : "M" + point;
-  };
+const getPolygonPoints = (point?: string) =>
+  point?.startsWith("M") ? point : "M" + point;
 
-  const data = parse(svg, {
+export const parse = (svg, options) => {
+  // @ts-ignore [TODO]: Fix this
+  const data: RawIcon = muninnParse(svg, {
     schema: {
       points: {
         selector: "polygon @ points | array",
@@ -47,10 +47,10 @@ function parseSVG(svg, options) {
   });
 
   if (data.viewBox) {
-    const [, , width, height] = data.viewBox.split(" ");
+    const [, , width, height] = data.viewBox.split(" ").map(parseInt);
 
-    data.width = data.width || parseInt(width);
-    data.height = data.height || parseInt(height);
+    data.width = data.width || width;
+    data.height = data.height || height;
   }
 
   if (Array.isArray(data.points)) {
@@ -61,7 +61,5 @@ function parseSVG(svg, options) {
 
   const isIcomoon = options && options.template === "icomoon";
 
-  return isIcomoon ? convertToIcomoonFormat(data) : data;
-}
-
-module.exports = parseSVG;
+  return isIcomoon ? icomoon(data) : data;
+};

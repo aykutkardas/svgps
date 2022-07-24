@@ -2,8 +2,9 @@
   "name": "svgps",
   "version": "0.6.0",
   "description": "Svg Parser",
-  "main": "src/index.js",
+  "main": "build/index.js",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,5 +26,9 @@
     "lodash.uniq": "^4.5.0",
     "muninn": "^0.12.4",
     "svgpath": "^2.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.6",
+    "typescript": "^4.7.4"
   }
 }

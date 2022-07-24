@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "outDir": "build",
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "lib": ["ES2015"],
+    "module": "esnext",
+    "target": "es5"
+  }
+}
