@@ -1,3 +1,3 @@
 import { parse } from "./parse";
 
-export default { parse };
+export default parse;
