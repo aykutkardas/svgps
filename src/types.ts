@@ -45,3 +45,5 @@ export type IcomoonIcon = {
   };
   [key: string]: any;
 };
+
+export type Template = "icomoon";

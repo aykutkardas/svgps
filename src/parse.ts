@@ -1,4 +1,4 @@
-import { RawIcon } from "./types";
+import { IcomoonIcon, Icon, RawIcon, Template } from "./types";
 
 import { parse as muninnParse } from "muninn";
 
@@ -7,7 +7,14 @@ import { icomoon } from "./template/icomoon";
 const getPolygonPoints = (point?: string) =>
   point?.startsWith("M") ? point : "M" + point;
 
-export const parse = (svg, options) => {
+interface ParseOptions {
+  template?: Template;
+}
+
+export const parse = (
+  svg: string,
+  options?: ParseOptions
+): IcomoonIcon | Icon => {
   // @ts-ignore [TODO]: Fix this
   const data: RawIcon = muninnParse(svg, {
     schema: {
