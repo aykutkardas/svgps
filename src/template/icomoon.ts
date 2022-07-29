@@ -1,5 +1,5 @@
-import svgpath from "svgpath";
-import uniq from "lodash.uniq";
+import * as svgpath from "svgpath";
+import * as uniq from "lodash.uniq";
 
 import { IcomoonIcon, Icon, SvgPathAttrs } from "../types";
 
