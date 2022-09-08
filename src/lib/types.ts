@@ -14,7 +14,9 @@ export type IconAttrs = {
 };
 
 export type RawIcon = {
-  points: string[];
+  points?: string[];
+  circles?: { cx: number; cy: number; r: number }[];
+  lines?: { x1: number; y1: number; x2: number; y2: number }[];
   paths: string[];
   fills: string[];
   width: number;
@@ -46,4 +48,4 @@ export type IcomoonIcon = {
   [key: string]: any;
 };
 
-export type Template = "icomoon";
+export type Template = 'icomoon';

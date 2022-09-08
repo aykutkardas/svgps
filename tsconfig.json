@@ -1,7 +1,10 @@
 {
+  "include": ["src/lib/**/*"],
   "compilerOptions": {
     "declaration": true,
+    "declarationMap": true,
     "outDir": "build",
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "lib": ["ES2015"]
