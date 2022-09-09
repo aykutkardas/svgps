@@ -6,34 +6,26 @@ export type SvgPathAttrs = {
   strokeLinejoin?: string;
   strokeWidth?: number;
   fill?: string;
-};
-
-export type IconAttrs = {
-  fill?: string;
-  stroke?: string;
+  d?: string;
 };
 
 export type RawIcon = {
-  points?: string[];
-  circles?: { cx: number; cy: number; r: number }[];
-  lines?: { x1: number; y1: number; x2: number; y2: number }[];
-  paths: string[];
+  paths: { path: SvgPathAttrs }[];
   fills: string[];
   width: number;
   height: number;
   viewBox: string;
   attrs: SvgPathAttrs[];
-  svgAttrs: IconAttrs;
+  svgAttrs: SvgPathAttrs;
 };
 
 export type Icon = {
   paths: string[];
-  fills: string[];
   width: number;
   height: number;
   viewBox: string;
   attrs: SvgPathAttrs[];
-  svgAttrs: IconAttrs;
+  svgAttrs: SvgPathAttrs;
 };
 
 export type IcomoonIcon = {

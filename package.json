@@ -23,8 +23,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "lodash.uniq": "^4.5.0",
-    "muninn": "^0.13.0",
+    "lodash": "^4.17.21",
+    "muninn": "^0.14.0",
     "svgpath": "^2.5.0"
   },
   "devDependencies": {

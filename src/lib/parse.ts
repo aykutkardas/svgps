@@ -1,23 +1,15 @@
-import { IcomoonIcon, Icon, RawIcon, Template } from './types';
-
 import { parse as muninnParse } from 'muninn';
+import _ from 'lodash';
 
+import { IcomoonIcon, Icon, RawIcon, Template } from './types';
 import { icomoon } from './template/icomoon';
 import circleToPath from './utils/circleToPath';
 import lineToPath from './utils/lineToPath';
+import rectToPath from './utils/rectToPath';
+import keyToCamelCase from './utils/keyToCamelCase';
 
 const getPolygonPoints = (point?: string) =>
   point?.startsWith('M') ? point : 'M' + point;
-
-const getCircleToPath = (circle: { cx: number; cy: number; r: number }) =>
-  circleToPath(circle.cx, circle.cy, circle.r);
-
-const getLineToPath = (line: {
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
-}) => lineToPath(line.x1, line.y1, line.x2, line.y2);
 
 interface ParseOptions {
   template?: Template;
@@ -27,94 +19,112 @@ export const parse = (
   svg: string,
   options?: ParseOptions
 ): IcomoonIcon | Icon => {
-  const strokeWidthSelector = {
-    selector: '@ stroke-width',
-    transform: (value) => {
-      if (value === null) return null;
-      return Number(value);
-    },
+  const getPaths = (el) => {
+    const tagName = el.get(0).tagName;
+
+    return {
+      path: {
+        selector: '@ $all',
+        transform: (value) => {
+          const calcKeys = [
+            'cx',
+            'cy',
+            'r',
+            'x',
+            'y',
+            'width',
+            'height',
+            'x1',
+            'y1',
+            'x2',
+            'y2',
+            'rx',
+          ];
+
+          const calcValue = _.mapValues(_.pick(value, calcKeys), (v) =>
+            Number(v)
+          );
+          if (tagName === 'circle') {
+            value.d = circleToPath(calcValue.cx, calcValue.cy, calcValue.r);
+          } else if (tagName === 'line') {
+            value.d = lineToPath(
+              calcValue.x1,
+              calcValue.y1,
+              calcValue.x2,
+              calcValue.y2
+            );
+          } else if (tagName === 'polygon' || tagName === 'polyline') {
+            value.d = getPolygonPoints(value.points);
+          } else if (tagName === 'rect') {
+            value.d = rectToPath(
+              calcValue.x || 0,
+              calcValue.y || 0,
+              calcValue.width,
+              calcValue.height
+            );
+          }
+
+          if (value['stroke-width']) {
+            value['stroke-width'] = Number(value['stroke-width']);
+          }
+
+          return keyToCamelCase(_.omit(value, [...calcKeys, 'points']));
+        },
+      },
+    };
   };
+
   // @ts-ignore [TODO]: Fix this
   const data: RawIcon = muninnParse(svg, {
     schema: {
-      points: {
-        selector: 'polygon, polyline @ points | array',
-        transform: getPolygonPoints,
+      paths: {
+        selector: 'path, polygon, polyline, circle, line, rect | array',
+        schema: getPaths,
       },
-      lines: {
-        selector: 'line | array',
-        schema: {
-          x1: '@ x1 | number',
-          y1: '@ y1 | number',
-          x2: '@ x2 | number',
-          y2: '@ y2 | number',
-        },
-      },
-      circles: {
-        selector: 'circle | array',
-        schema: {
-          cx: '@ cx | number',
-          cy: '@ cy | number',
-          r: '@ r | number',
-        },
-      },
-      paths: { selector: 'path @ d | array', initial: [] },
       width: 'svg @ width | number',
       height: 'svg @ height | number',
       viewBox: 'svg @ viewBox',
-      attrs: {
-        selector: 'path, polygon, polyline, circle | array',
-        schema: {
-          clipRule: '@ clip-rule',
-          fillRule: '@ fill-rule',
-          stroke: '@ stroke',
-          fill: '@ fill',
-          strokeLinecap: '@ stroke-linecap',
-          strokeLinejoin: '@ stroke-linejoin',
-          strokeWidth: strokeWidthSelector,
-        },
-      },
       svgAttrs: {
-        selector: 'svg',
-        schema: {
-          clipRule: '@ clip-rule',
-          fillRule: '@ fill-rule',
-          fill: '@ fill',
-          stroke: '@ stroke',
-          strokeLinecap: '@ stroke-linecap',
-          strokeLinejoin: '@ stroke-linejoin',
-          strokeWidth: strokeWidthSelector,
-        },
+        selector: 'svg @ $all',
+        transform: (value) => ({
+          ..._.omit(keyToCamelCase(value), [
+            'class',
+            'height',
+            'width',
+            'viewBox',
+            'xmlns',
+            'xlink',
+            'version',
+            'preserveAspectRatio',
+          ]),
+          ...(value['stroke-width']
+            ? { strokeWidth: Number(value['stroke-width']) }
+            : {}),
+        }),
       },
     },
   });
 
+  const icon: Icon = {
+    width: data.width,
+    height: data.height,
+    paths: [],
+    viewBox: data.viewBox,
+    attrs: [],
+    svgAttrs: data.svgAttrs,
+  };
+
   if (data.viewBox) {
     const [, , width, height] = data.viewBox.split(' ').map(parseInt);
 
-    data.width = data.width || width;
-    data.height = data.height || height;
+    icon.width = data.width || width;
+    icon.height = data.height || height;
   }
 
-  if (Array.isArray(data.points)) {
-    data.points.forEach((point) => data.paths.unshift(point));
-  }
-
-  if (Array.isArray(data.circles)) {
-    data.circles.forEach((circle) =>
-      data.paths.unshift(getCircleToPath(circle))
-    );
-  }
-
-  if (Array.isArray(data.lines)) {
-    data.lines.forEach((line) => data.paths.unshift(getLineToPath(line)));
-  }
-
-  delete data.points;
-  delete data.circles;
-  delete data.lines;
+  icon.paths = data.paths.map(({ path }) => path.d);
+  icon.attrs = data.paths.map(({ path: { d, ...attr } }) => attr);
 
   const isIcomoon = options && options.template === 'icomoon';
 
-  return isIcomoon ? icomoon(data) : data;
+  return isIcomoon ? icomoon(icon) : icon;
 };

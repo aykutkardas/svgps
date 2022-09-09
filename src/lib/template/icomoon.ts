@@ -1,18 +1,7 @@
 const svgpath = require('svgpath');
-const uniq = require('lodash.uniq');
+const _ = require('lodash');
 
 import { IcomoonIcon, Icon, SvgPathAttrs } from '../types';
-
-const clearEmptyAttr = (attr: SvgPathAttrs): SvgPathAttrs => {
-  const newAttr = { ...attr };
-
-  Object.keys(newAttr).forEach((key) => {
-    if (newAttr[key] !== null) return;
-    delete newAttr[key];
-  });
-
-  return newAttr;
-};
 
 const scaleStrokeWidth = (attr: SvgPathAttrs, scale: number): SvgPathAttrs => {
   const newAttr = { ...attr };
@@ -28,27 +17,25 @@ export const icomoon = (icon: Icon): IcomoonIcon => {
   const [, , viewBoxWidth, viewBoxHeight] = icon.viewBox.split(' ').map(Number);
   const scale = 1024 / Math.max(viewBoxWidth, viewBoxHeight);
 
-  const svgAttrs = clearEmptyAttr(icon.svgAttrs);
+  const paths = icon.paths.map((path) =>
+    svgpath(path).scale(scale).round(1).toString()
+  );
 
   icon.attrs = icon.attrs.map((attr) =>
     scaleStrokeWidth(
       {
-        ...svgAttrs,
-        ...clearEmptyAttr(attr),
+        ...icon.svgAttrs,
+        ...attr,
       },
       scale
     )
   );
 
-  // @ts-ignore [TODO]: Fix this
-  const scalePath = (path) => svgpath(path).scale(scale).round(1).toString();
-
   const attrs = icon.attrs;
-  const paths = icon.paths.map(scalePath);
   const width = Math.round(Math.max(viewBoxWidth) * scale);
 
-  const uniqueFills = uniq(attrs.map(({ fill }) => fill));
-  const uniqueStrokes = uniq(attrs.map(({ stroke }) => stroke));
+  const uniqueFills = _.uniq(attrs.map(({ fill }) => fill));
+  const uniqueStrokes = _.uniq(attrs.map(({ stroke }) => stroke));
   const hasNoneFill = uniqueFills.includes('none');
   const hasNoneStroke = uniqueStrokes.includes('none');
 

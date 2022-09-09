@@ -2709,10 +2709,10 @@ lodash.debounce@^4.0.8:
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
   integrity sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==
 
-lodash.uniq@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
-  integrity sha512-xfBaXQd9ryd9dlSDvnvI0lvxfLJlYAZzXomUYzLKtUeOQvOP5piqAWuGtrhWeqaXK9hhoM/iyJc5AV+XfsX3HQ==
+lodash@^4.17.21:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 loupe@^2.3.1:
   version "2.3.4"
@@ -2777,10 +2777,10 @@ ms@2.1.2:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-muninn@^0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/muninn/-/muninn-0.13.0.tgz#41db08474232e56ed9169edd4eaf638f1f5d4135"
-  integrity sha512-7CwGkW+Aw1twNgtvmkYHC1258bcNB/TzzXUQbhn3Qw1GFZYJod1/0crcSYL3tCzaf9khzr/kmzWkPwKLOQmEWg==
+muninn@^0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/muninn/-/muninn-0.14.0.tgz#421ef154665ad7631f618a484590ce5a5f043aa3"
+  integrity sha512-XzJRkPYbeylpFRs8yRUuTHp/6IrtEi5jn3n7yylvCPTwsAUi6wmwZfrPtBs3xx2vVncbRgqGnpW4Kwtgixa1CQ==
   dependencies:
     ajv "^8.1.0"
     cheerio "^1.0.0-rc.10"
