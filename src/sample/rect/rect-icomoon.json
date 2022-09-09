@@ -1,0 +1,41 @@
+{
+  "icon": {
+    "width": 1024,
+    "attrs": [
+      {
+        "fill": "none"
+      },
+      {
+        "fill": "none",
+        "stroke": "#000000",
+        "strokeLinecap": "round",
+        "strokeLinejoin": "round",
+        "strokeWidth": 48
+      },
+      {
+        "fill": "none",
+        "stroke": "#000000",
+        "strokeLinecap": "round",
+        "strokeLinejoin": "round",
+        "strokeWidth": 48,
+        "transform": "translate(256 168) rotate(180)"
+      },
+      {
+        "fill": "none",
+        "stroke": "#000000",
+        "strokeLinecap": "round",
+        "strokeLinejoin": "round",
+        "strokeWidth": 48
+      }
+    ],
+    "paths": [
+      "M0 0L0 1024 1024 1024 1024 0",
+      "M864 160L864 864",
+      "M288 224L288 448 448 224 224 224",
+      "M128 576L128 608 608 224 224 576"
+    ]
+  },
+  "properties": {
+    "name": ""
+  }
+}

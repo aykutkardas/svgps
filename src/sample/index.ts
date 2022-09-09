@@ -53,3 +53,10 @@ export const ArrowLeftCircleIcomoonJSON = fs.readFileSync(
   __dirname + '/arrow-left-circle/arrow-left-circle-icomoon.json',
   'utf8'
 );
+
+export const RectSVG = fs.readFileSync(__dirname + '/rect/rect.svg', 'utf8');
+export const RectJSON = fs.readFileSync(__dirname + '/rect/rect.json', 'utf8');
+export const RectIcomoonJSON = fs.readFileSync(
+  __dirname + '/rect/rect-icomoon.json',
+  'utf8'
+);

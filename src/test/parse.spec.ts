@@ -10,34 +10,38 @@ import {
   SvelteJSON,
   ArrowLeftCircleSVG,
   ArrowLeftCircleJSON,
+  RectSVG,
+  RectJSON,
 } from '../sample';
 
 describe('Parse', () => {
   it('AirPlaySVG - [Path, Polygon]', () => {
     const result = parse(AirPlaySVG);
     const expected = JSON.parse(AirPlayJSON);
-
     expect(result).to.deep.equal(expected);
   });
 
   it('SettingsIconSVG - [Circle, Path]', () => {
     const result = parse(SettingsIconSVG);
     const expected = JSON.parse(SettingsIconJSON);
-
     expect(result).to.deep.equal(expected);
   });
 
   it('SvelteSVG - [Circle, Path]', () => {
     const result = parse(SvelteSVG);
     const expected = JSON.parse(SvelteJSON);
-
     expect(result).to.deep.equal(expected);
   });
 
   it('ArrowLeftCircleSVG - [Polyline, Path]', () => {
     const result = parse(ArrowLeftCircleSVG);
     const expected = JSON.parse(ArrowLeftCircleJSON);
+    expect(result).to.deep.equal(expected);
+  });
 
+  it('RectSVG - [Rect, Path]', () => {
+    const result = parse(RectSVG);
+    const expected = JSON.parse(RectJSON);
     expect(result).to.deep.equal(expected);
   });
 });
