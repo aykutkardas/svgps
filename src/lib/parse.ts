@@ -6,14 +6,39 @@ import { icomoon } from './template/icomoon';
 import circleToPath from './utils/circleToPath';
 import lineToPath from './utils/lineToPath';
 import rectToPath from './utils/rectToPath';
+import polygonToPath from './utils/polygonToPath';
 import keyToCamelCase from './utils/keyToCamelCase';
-
-const getPolygonPoints = (point?: string) =>
-  point?.startsWith('M') ? point : 'M' + point;
 
 interface ParseOptions {
   template?: Template;
 }
+
+// Attributes that need to be converted to numbers
+const calcKeys = [
+  'cx',
+  'cy',
+  'r',
+  'x',
+  'y',
+  'width',
+  'height',
+  'x1',
+  'y1',
+  'x2',
+  'y2',
+  'rx',
+];
+
+const ignoredSvgAttrs = [
+  'class',
+  'height',
+  'width',
+  'viewBox',
+  'xmlns',
+  'xlink',
+  'version',
+  'preserveAspectRatio',
+];
 
 export const parse = (
   svg: string,
@@ -26,42 +51,17 @@ export const parse = (
       path: {
         selector: '@ $all',
         transform: (value) => {
-          const calcKeys = [
-            'cx',
-            'cy',
-            'r',
-            'x',
-            'y',
-            'width',
-            'height',
-            'x1',
-            'y1',
-            'x2',
-            'y2',
-            'rx',
-          ];
-
           const calcValue = _.mapValues(_.pick(value, calcKeys), (v) =>
             Number(v)
           );
           if (tagName === 'circle') {
-            value.d = circleToPath(calcValue.cx, calcValue.cy, calcValue.r);
+            value.d = circleToPath(calcValue);
           } else if (tagName === 'line') {
-            value.d = lineToPath(
-              calcValue.x1,
-              calcValue.y1,
-              calcValue.x2,
-              calcValue.y2
-            );
+            value.d = lineToPath(calcValue);
           } else if (tagName === 'polygon' || tagName === 'polyline') {
-            value.d = getPolygonPoints(value.points);
+            value.d = polygonToPath(value.points);
           } else if (tagName === 'rect') {
-            value.d = rectToPath(
-              calcValue.x || 0,
-              calcValue.y || 0,
-              calcValue.width,
-              calcValue.height
-            );
+            value.d = rectToPath(calcValue);
           }
 
           if (value['stroke-width']) {
@@ -87,16 +87,7 @@ export const parse = (
       svgAttrs: {
         selector: 'svg @ $all',
         transform: (value) => ({
-          ..._.omit(keyToCamelCase(value), [
-            'class',
-            'height',
-            'width',
-            'viewBox',
-            'xmlns',
-            'xlink',
-            'version',
-            'preserveAspectRatio',
-          ]),
+          ..._.omit(keyToCamelCase(value), ignoredSvgAttrs),
           ...(value['stroke-width']
             ? { strokeWidth: Number(value['stroke-width']) }
             : {}),
