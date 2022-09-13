@@ -1,0 +1,41 @@
+{
+  "width": 192,
+  "height": 192,
+  "viewBox": "0 0 256 256",
+  "svgAttrs": {
+    "fill": "#000000"
+  },
+  "attrs": [
+    {
+      "fill": "none"
+    },
+    {
+      "fill": "none",
+      "stroke": "#000000",
+      "strokeLinecap": "round",
+      "strokeLinejoin": "round",
+      "strokeWidth": 12
+    },
+    {
+      "fill": "none",
+      "stroke": "#000000",
+      "strokeLinecap": "round",
+      "strokeLinejoin": "round",
+      "strokeWidth": 12,
+      "transform": "translate(256 168) rotate(180)"
+    },
+    {
+      "fill": "none",
+      "stroke": "#000000",
+      "strokeLinecap": "round",
+      "strokeLinejoin": "round",
+      "strokeWidth": 12
+    }
+  ],
+  "paths": [
+    "M 0 0, 0 256, 256 256, 256 0, 0 0",
+    "M 216 40, 216 216",
+    "M 72 56, 72 112, 184 112, 184 56, 72 56",
+    "M 32 144, 32 200, 184 200, 184 144, 32 144"
+  ]
+}

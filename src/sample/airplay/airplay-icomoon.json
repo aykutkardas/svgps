@@ -1,0 +1,26 @@
+{
+  "icon": {
+    "width": 1024,
+    "attrs": [
+      {
+        "fill": "none",
+        "strokeWidth": 85.33333333333333,
+        "strokeLinecap": "round",
+        "strokeLinejoin": "round"
+      },
+      {
+        "fill": "none",
+        "strokeWidth": 85.33333333333333,
+        "strokeLinecap": "round",
+        "strokeLinejoin": "round"
+      }
+    ],
+    "paths": [
+      "M213.3 725.3H170.7a85.3 85.3 0 0 1-85.4-85.3V213.3a85.3 85.3 0 0 1 85.4-85.3h682.6a85.3 85.3 0 0 1 85.4 85.3v426.7a85.3 85.3 0 0 1-85.4 85.3h-42.6",
+      "M512 640L725.3 896 298.7 896 512 640"
+    ]
+  },
+  "properties": {
+    "name": ""
+  }
+}

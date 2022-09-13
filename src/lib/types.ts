@@ -6,32 +6,26 @@ export type SvgPathAttrs = {
   strokeLinejoin?: string;
   strokeWidth?: number;
   fill?: string;
-};
-
-export type IconAttrs = {
-  fill?: string;
-  stroke?: string;
+  d?: string;
 };
 
 export type RawIcon = {
-  points: string[];
-  paths: string[];
+  paths: { path: SvgPathAttrs }[];
   fills: string[];
   width: number;
   height: number;
   viewBox: string;
   attrs: SvgPathAttrs[];
-  svgAttrs: IconAttrs;
+  svgAttrs: SvgPathAttrs;
 };
 
 export type Icon = {
   paths: string[];
-  fills: string[];
   width: number;
   height: number;
   viewBox: string;
   attrs: SvgPathAttrs[];
-  svgAttrs: IconAttrs;
+  svgAttrs: SvgPathAttrs;
 };
 
 export type IcomoonIcon = {
@@ -46,4 +40,4 @@ export type IcomoonIcon = {
   [key: string]: any;
 };
 
-export type Template = "icomoon";
+export type Template = 'icomoon';
