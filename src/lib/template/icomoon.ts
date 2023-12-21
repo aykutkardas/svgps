@@ -34,14 +34,9 @@ export const icomoon = (icon: Icon): IcomoonIcon => {
   const attrs = icon.attrs;
   const width = Math.round(Math.max(viewBoxWidth) * scale);
 
-  const uniqueFills = _.uniq(attrs.map(({ fill }) => fill));
   const uniqueStrokes = _.uniq(attrs.map(({ stroke }) => stroke));
-  const hasNoneFill = uniqueFills.includes('none');
   const hasNoneStroke = uniqueStrokes.includes('none');
 
-  if (uniqueFills.length === 1 && !hasNoneFill) {
-    attrs.forEach((attr) => delete attr.fill);
-  }
   if (uniqueStrokes.length === 1 && !hasNoneStroke) {
     attrs.forEach((attr) => delete attr.stroke);
   }
