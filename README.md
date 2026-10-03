@@ -11,17 +11,12 @@ SVG Parser
 npm install svgps
 ```
 
-## Utils
-
-- Circle to Path
-- Rect to Path
-- Line to Path
-- Polygon to Path
-
 ## Usage
 
 ```js
 import { parse } from 'svgps';
+// or: import parse from 'svgps';
+// or: const { parse } = require('svgps');
 
 parse(`<svg>...</svg>`);
 ```
@@ -93,4 +88,25 @@ parse(`<svg>...</svg>`, { template: 'icomoon' });
   }
 }
 
+```
+
+## Utils
+
+Shape-to-path helpers used internally are also exported:
+
+```js
+import { circleToPath, rectToPath, lineToPath, polygonToPath } from 'svgps';
+
+circleToPath({ cx: 12, cy: 12, r: 10 });
+rectToPath({ x: 0, y: 0, width: 24, height: 12 });
+lineToPath({ x1: 0, y1: 0, x2: 24, y2: 24 });
+polygonToPath('12 15 17 21 7 21 12 15');
+```
+
+## TypeScript
+
+Types are included:
+
+```ts
+import { parse, type Icon, type IcomoonIcon, type ParseOptions } from 'svgps';
 ```
