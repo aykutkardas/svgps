@@ -7,7 +7,7 @@
 
 Parse an SVG string into plain JSON: path data, per-path attributes and SVG-level attributes. Basic shapes are converted to paths, and an [IcoMoon](https://icomoon.io/) template is included.
 
-- Converts `<circle>`, `<rect>`, `<line>`, `<polygon>` and `<polyline>` to path data
+- Converts `<circle>`, `<rect>` (including `rx`/`ry`), `<line>`, `<polygon>` and `<polyline>` to path data
 - Collects each element's attributes as camelCased keys (`stroke-width` → `strokeWidth`)
 - Reads `width` / `height` from the `<svg>` element, or from `viewBox` when they are missing
 - Optional `icomoon` output: scaled to a 1024 grid, ready for IcoMoon-style icon sets
@@ -98,6 +98,8 @@ With the `icomoon` template:
 | ------------------ | ------------ | ---------------------------------------------- |
 | `svg`              | `string`     | SVG markup                                     |
 | `options.template` | `'icomoon'`  | Return the IcoMoon format instead of `Icon`    |
+| `options.scale`    | `number`     | Multiply paths, size, `viewBox` and `strokeWidth` by this ratio. Element `transform`s are applied to the path first. Ignored with `template: 'icomoon'` |
+| `options.preserveColors` | `boolean` | `icomoon` only: keep a `fill`/`stroke` shared by every path instead of removing it |
 
 Returns an `Icon`, or an `IcomoonIcon` when `template: 'icomoon'` is set.
 

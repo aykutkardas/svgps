@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.0
+
+### Features
+
+- New `scale` option: multiplies paths, `width`/`height`, `viewBox` and `strokeWidth` by the given ratio. Element `transform`s are applied to the path data before scaling. Ignored by the `icomoon` template (#3).
+- New `preserveColors` option for the `icomoon` template: keeps a `fill`/`stroke` shared by every path instead of removing it (#5).
+- `rectToPath` and `<rect>` elements now support `rx`/`ry` (rounded corners were previously drawn square).
+
 ## 0.9.0
 
 ### Fixes
