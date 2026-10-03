@@ -122,3 +122,42 @@ describe('icomoon preserveColors', () => {
     ]);
   });
 });
+
+describe('scale', () => {
+  const svg =
+    '<svg width="24" height="24" viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="8" x2="12" y2="16"/><path d="M0.1 0.1h0.2" stroke-width="1.5"/></svg>';
+
+  it('scales paths, size, viewBox and strokeWidth', () => {
+    expect(parse(svg, { scale: 3 })).toEqual({
+      width: 72,
+      height: 72,
+      viewBox: '0 0 72 72',
+      paths: ['M36 24L36 48', 'M0.3 0.3h0.6'],
+      attrs: [{}, { strokeWidth: 4.5 }],
+      svgAttrs: { strokeWidth: 6 },
+    });
+  });
+
+  it('applies element transforms before scaling', () => {
+    const result = parse(
+      '<svg viewBox="0 0 10 10"><rect width="2" height="2" transform="translate(4 4)"/></svg>',
+      { scale: 2 },
+    ) as Icon;
+    expect(result.paths[0]).toBe('M8 8L8 12 12 12 12 8 8 8');
+    expect(result.attrs[0]).toEqual({});
+  });
+
+  it('leaves the output untouched when scale is not set', () => {
+    expect(parse(svg)).toEqual(parse(svg, {}));
+  });
+
+  it('is ignored by the icomoon template', () => {
+    expect(parse(svg, { template: 'icomoon', scale: 5 })).toEqual(
+      parse(svg, { template: 'icomoon' }),
+    );
+  });
+
+  it.each([0, -1, NaN, Infinity])('rejects an invalid scale (%s)', (scale) => {
+    expect(() => parse(svg, { scale })).toThrow(RangeError);
+  });
+});

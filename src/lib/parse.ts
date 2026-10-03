@@ -8,6 +8,7 @@ import rectToPath from './utils/rectToPath';
 import polygonToPath from './utils/polygonToPath';
 import keyToCamelCase from './utils/keyToCamelCase';
 import parseViewBox from './utils/parseViewBox';
+import scaleIcon from './utils/scaleIcon';
 import { omit, pick } from './utils/object';
 
 export interface ParseOptions {
@@ -18,6 +19,12 @@ export interface ParseOptions {
    * `true` to keep the original colors.
    */
   preserveColors?: boolean;
+  /**
+   * Multiplies the icon's values (paths, width/height, viewBox and
+   * strokeWidth) by the given ratio. Ignored by the `icomoon` template,
+   * which always scales to a 1024 grid.
+   */
+  scale?: number;
 }
 
 // Attributes that need to be converted to numbers
@@ -128,7 +135,9 @@ export const parse = (
 
   const isIcomoon = options && options.template === 'icomoon';
 
-  return isIcomoon
-    ? icomoon(icon, { preserveColors: options?.preserveColors })
-    : icon;
+  if (isIcomoon) {
+    return icomoon(icon, { preserveColors: options?.preserveColors });
+  }
+
+  return options?.scale !== undefined ? scaleIcon(icon, options.scale) : icon;
 };
