@@ -1,12 +1,16 @@
 {
   "include": ["src/lib/**/*"],
   "compilerOptions": {
+    "target": "ES2019",
+    "module": "commonjs",
+    "lib": ["ES2019"],
     "declaration": true,
     "declarationMap": true,
     "outDir": "build",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
-    "lib": ["ES2015"]
+    "skipLibCheck": true,
+    "types": ["node"]
   }
 }

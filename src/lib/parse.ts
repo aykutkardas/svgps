@@ -1,5 +1,4 @@
 import { parse as muninnParse } from 'muninn';
-import _ from 'lodash';
 
 import { IcomoonIcon, Icon, RawIcon, Template } from './types';
 import { icomoon } from './template/icomoon';
@@ -8,8 +7,10 @@ import lineToPath from './utils/lineToPath';
 import rectToPath from './utils/rectToPath';
 import polygonToPath from './utils/polygonToPath';
 import keyToCamelCase from './utils/keyToCamelCase';
+import parseViewBox from './utils/parseViewBox';
+import { omit, pick } from './utils/object';
 
-interface ParseOptions {
+export interface ParseOptions {
   template?: Template;
 }
 
@@ -42,7 +43,7 @@ const ignoredSvgAttrs = [
 
 export const parse = (
   svg: string,
-  options?: ParseOptions
+  options?: ParseOptions,
 ): IcomoonIcon | Icon => {
   const getPaths = (el) => {
     const tagName = el.get(0).tagName;
@@ -51,9 +52,12 @@ export const parse = (
       path: {
         selector: '@ $all',
         transform: (value) => {
-          const calcValue = _.mapValues(_.pick(value, calcKeys), (v) =>
-            Number(v)
-          );
+          const calcValue = Object.fromEntries(
+            Object.entries(pick(value, calcKeys)).map(([key, v]) => [
+              key,
+              Number(v),
+            ]),
+          ) as any;
           if (tagName === 'circle') {
             value.d = circleToPath(calcValue);
           } else if (tagName === 'line') {
@@ -68,7 +72,7 @@ export const parse = (
             value['stroke-width'] = Number(value['stroke-width']);
           }
 
-          return keyToCamelCase(_.omit(value, [...calcKeys, 'points']));
+          return keyToCamelCase(omit(value, [...calcKeys, 'points']));
         },
       },
     };
@@ -87,7 +91,7 @@ export const parse = (
       svgAttrs: {
         selector: 'svg @ $all',
         transform: (value) => ({
-          ..._.omit(keyToCamelCase(value), ignoredSvgAttrs),
+          ...omit(keyToCamelCase(value), ignoredSvgAttrs),
           ...(value['stroke-width']
             ? { strokeWidth: Number(value['stroke-width']) }
             : {}),
@@ -106,7 +110,7 @@ export const parse = (
   };
 
   if (data.viewBox) {
-    const [, , width, height] = data.viewBox.split(' ').map(parseInt);
+    const [, , width, height] = parseViewBox(data.viewBox);
 
     icon.width = data.width || width;
     icon.height = data.height || height;

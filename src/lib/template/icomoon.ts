@@ -1,7 +1,8 @@
-const svgpath = require('svgpath');
-const _ = require('lodash');
+import svgpath from 'svgpath';
 
 import { IcomoonIcon, Icon, SvgPathAttrs } from '../types';
+import parseViewBox from '../utils/parseViewBox';
+import { uniq } from '../utils/object';
 
 const scaleStrokeWidth = (attr: SvgPathAttrs, scale: number): SvgPathAttrs => {
   const newAttr = { ...attr };
@@ -14,11 +15,13 @@ const scaleStrokeWidth = (attr: SvgPathAttrs, scale: number): SvgPathAttrs => {
 };
 
 export const icomoon = (icon: Icon): IcomoonIcon => {
-  const [, , viewBoxWidth, viewBoxHeight] = icon.viewBox.split(' ').map(Number);
+  // Fall back to the icon's own size when the SVG has no viewBox
+  const [, , viewBoxWidth = icon.width, viewBoxHeight = icon.height] =
+    parseViewBox(icon.viewBox);
   const scale = 1024 / Math.max(viewBoxWidth, viewBoxHeight);
 
   const paths = icon.paths.map((path) =>
-    svgpath(path).scale(scale).round(1).toString()
+    svgpath(path).scale(scale).round(1).toString(),
   );
 
   icon.attrs = icon.attrs.map((attr) =>
@@ -27,15 +30,15 @@ export const icomoon = (icon: Icon): IcomoonIcon => {
         ...icon.svgAttrs,
         ...attr,
       },
-      scale
-    )
+      scale,
+    ),
   );
 
   const attrs = icon.attrs;
-  const width = Math.round(Math.max(viewBoxWidth) * scale);
+  const width = Math.round(viewBoxWidth * scale);
 
-  const uniqueFills = _.uniq(attrs.map(({ fill }) => fill));
-  const uniqueStrokes = _.uniq(attrs.map(({ stroke }) => stroke));
+  const uniqueFills = uniq(attrs.map(({ fill }) => fill));
+  const uniqueStrokes = uniq(attrs.map(({ stroke }) => stroke));
   const hasNoneFill = uniqueFills.includes('none');
   const hasNoneStroke = uniqueStrokes.includes('none');
 
