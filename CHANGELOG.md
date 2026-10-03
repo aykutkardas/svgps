@@ -20,3 +20,4 @@
 - Added `types` and `engines` fields to `package.json`.
 - **Requires Node >= 20.18.1** (inherited from `cheerio` 1.x via `muninn` 1.0). Node 18 is end-of-life.
 - Switched from Yarn to npm and added GitHub Actions CI.
+- Rewrote the README (accurate examples, API reference, working badges).
