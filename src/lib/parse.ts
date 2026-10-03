@@ -12,6 +12,12 @@ import { omit, pick } from './utils/object';
 
 export interface ParseOptions {
   template?: Template;
+  /**
+   * `icomoon` template only. By default a `fill`/`stroke` shared by every
+   * path is removed so the icon color can be set from outside. Set this to
+   * `true` to keep the original colors.
+   */
+  preserveColors?: boolean;
 }
 
 // Attributes that need to be converted to numbers
@@ -122,5 +128,7 @@ export const parse = (
 
   const isIcomoon = options && options.template === 'icomoon';
 
-  return isIcomoon ? icomoon(icon) : icon;
+  return isIcomoon
+    ? icomoon(icon, { preserveColors: options?.preserveColors })
+    : icon;
 };

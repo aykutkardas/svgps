@@ -101,3 +101,24 @@ describe('rectToPath', () => {
     expect(result.attrs[0]).toEqual({});
   });
 });
+
+describe('icomoon preserveColors', () => {
+  const svg =
+    '<svg viewBox="0 0 24 24" stroke="#00f"><path d="M0 0h1" fill="#f00"/><path d="M1 1h1" fill="#f00"/></svg>';
+
+  it('removes a fill/stroke shared by every path by default', () => {
+    const result = parse(svg, { template: 'icomoon' }) as IcomoonIcon;
+    expect(result.icon.attrs).toEqual([{}, {}]);
+  });
+
+  it('keeps colors when preserveColors is true', () => {
+    const result = parse(svg, {
+      template: 'icomoon',
+      preserveColors: true,
+    }) as IcomoonIcon;
+    expect(result.icon.attrs).toEqual([
+      { stroke: '#00f', fill: '#f00' },
+      { stroke: '#00f', fill: '#f00' },
+    ]);
+  });
+});

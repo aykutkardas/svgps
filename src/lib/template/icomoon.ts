@@ -14,7 +14,14 @@ const scaleStrokeWidth = (attr: SvgPathAttrs, scale: number): SvgPathAttrs => {
   return newAttr;
 };
 
-export const icomoon = (icon: Icon): IcomoonIcon => {
+export interface IcomoonOptions {
+  preserveColors?: boolean;
+}
+
+export const icomoon = (
+  icon: Icon,
+  { preserveColors = false }: IcomoonOptions = {},
+): IcomoonIcon => {
   // Fall back to the icon's own size when the SVG has no viewBox
   const [, , viewBoxWidth = icon.width, viewBoxHeight = icon.height] =
     parseViewBox(icon.viewBox);
@@ -42,10 +49,10 @@ export const icomoon = (icon: Icon): IcomoonIcon => {
   const hasNoneFill = uniqueFills.includes('none');
   const hasNoneStroke = uniqueStrokes.includes('none');
 
-  if (uniqueFills.length === 1 && !hasNoneFill) {
+  if (!preserveColors && uniqueFills.length === 1 && !hasNoneFill) {
     attrs.forEach((attr) => delete attr.fill);
   }
-  if (uniqueStrokes.length === 1 && !hasNoneStroke) {
+  if (!preserveColors && uniqueStrokes.length === 1 && !hasNoneStroke) {
     attrs.forEach((attr) => delete attr.stroke);
   }
 
