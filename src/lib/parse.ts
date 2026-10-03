@@ -28,6 +28,7 @@ const calcKeys = [
   'x2',
   'y2',
   'rx',
+  'ry',
 ];
 
 const ignoredSvgAttrs = [

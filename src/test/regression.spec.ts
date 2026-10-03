@@ -58,3 +58,46 @@ describe('circleToPath', () => {
     expect(circleToPath({ cx: 5, cy: 5 })).not.toContain('NaN');
   });
 });
+
+describe('rectToPath', () => {
+  it('keeps the plain output when there is no radius', () => {
+    expect(rectToPath({ x: 1, y: 2, width: 3, height: 4 })).toBe(
+      'M 1 2, 1 6, 4 6, 4 2, 1 2',
+    );
+    expect(rectToPath({ x: 1, y: 2, width: 3, height: 4, rx: 0 })).toBe(
+      'M 1 2, 1 6, 4 6, 4 2, 1 2',
+    );
+  });
+
+  it('rounds corners with rx', () => {
+    expect(rectToPath({ x: 0, y: 0, width: 20, height: 10, rx: 2 })).toBe(
+      'M 2 0 H 18 A 2 2 0 0 1 20 2 V 8 A 2 2 0 0 1 18 10 H 2 A 2 2 0 0 1 0 8 V 2 A 2 2 0 0 1 2 0 Z',
+    );
+  });
+
+  it('uses ry for rx when only ry is set', () => {
+    expect(rectToPath({ width: 20, height: 10, ry: 3 })).toBe(
+      rectToPath({ width: 20, height: 10, rx: 3, ry: 3 }),
+    );
+  });
+
+  it('clamps radii to half of the size', () => {
+    expect(rectToPath({ width: 10, height: 10, rx: 100 })).toBe(
+      rectToPath({ width: 10, height: 10, rx: 5, ry: 5 }),
+    );
+  });
+
+  it('ignores invalid radii', () => {
+    expect(rectToPath({ width: 10, height: 10, rx: NaN })).toBe(
+      rectToPath({ width: 10, height: 10 }),
+    );
+  });
+
+  it('is used for <rect rx> inside parse', () => {
+    const result = parse(
+      '<svg viewBox="0 0 20 10"><rect width="20" height="10" rx="2" ry="1"/></svg>',
+    ) as Icon;
+    expect(result.paths[0]).toContain('A 2 1 0 0 1');
+    expect(result.attrs[0]).toEqual({});
+  });
+});
