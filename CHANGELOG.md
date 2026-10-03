@@ -15,7 +15,8 @@
 
 - Removed the `lodash` dependency (fixes vulnerable `lodash` versions in the dependency tree).
 - Upgraded `muninn` to `^1.0.0` and `svgpath` to `^2.6.0`.
-- Upgraded TypeScript to 5.x and Jest to 30; dropped `chai` and `ts-node`.
+- Upgraded TypeScript to 5.x; replaced Jest + Babel with Vitest; dropped `chai` and `ts-node`.
 - The published package now only contains `build/`, `README.md` and `LICENSE`.
-- Added `types` and `engines` (Node >= 18) fields to `package.json`.
+- Added `types` and `engines` fields to `package.json`.
+- **Requires Node >= 20.18.1** (inherited from `cheerio` 1.x via `muninn` 1.0). Node 18 is end-of-life.
 - Switched from Yarn to npm and added GitHub Actions CI.

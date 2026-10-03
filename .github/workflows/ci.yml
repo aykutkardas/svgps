@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [18, 20, 22, 24]
+        # Vitest requires Node >= 22.12
+        node: [22, 24]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -21,3 +22,30 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+
+  # The published package supports Node >= 20.18.1, so make sure the built
+  # output loads and runs on Node 20 too (Vitest itself needs Node 22+).
+  runtime:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [20]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm prune --omit=dev
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: |
+          node -e "
+          const { parse } = require('./build');
+          const icon = parse('<svg viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"10\"/></svg>');
+          if (icon.width !== 24 || icon.paths.length !== 1) process.exit(1);
+          console.log('OK', process.version);
+          "
